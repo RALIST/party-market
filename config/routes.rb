@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   get 'planner', to: 'home#planner'
 
   resources :locations
+  resources :plans
 
 end

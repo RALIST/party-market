@@ -41,12 +41,12 @@
     %ul.navbar-nav
       %li.nav-item
         - unless signed_in?
-          = link_to new_user_session_path, class: 'nav-link', title: 'Войти', data: {toggle: 'tooltip', placement: 'right'} do
+          = link_to new_user_session_path, class: 'nav-link', title: 'Войти', data: {toggle: 'tooltip', placement: 'left'} do
             %i.fas.fa-sign-in-alt.fa-lg.text-dark
             %span.d-lg-none
               Войти
         - else
-          = link_to destroy_user_session_path, method: :delete, title: 'Выйти', data: {toggle: 'tooltip', placement: 'right'} do
+          = link_to destroy_user_session_path, method: :delete, title: 'Выйти', data: {toggle: 'tooltip', placement: 'left'} do
             %i.fas.fa-sign-out-alt.fa-lg.text-dark
             %span.d-lg-none
               Выйти
