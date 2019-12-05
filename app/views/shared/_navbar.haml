@@ -1,18 +1,19 @@
 %nav.navbar.navbar-expand-lg.better-bootstrap-nav-left.sticky-top.border-bottom
-  = link_to 'Home', root_path,  class: 'navbar-brand d-lg-none'
+  = link_to root_path, class: 'navbar-brand text-dark' do
+    %i.fas.fa-tasks.text-primary
+    My Party Planner
   = link_to  '#', class: 'navbar-toggler', data: {toggle: 'collapse', target: '#navbar'} do
     %i.fas.fa-bars.fa-lg
-  .collapse.navbar-collapse#navbar
+  .collapse.navbar-collapse.justify-content-around#navbar
 
-    %ul.navbar-nav.w-100.justify-content-between
-
+    %ul.navbar-nav
       %li.nav-item.dropdown
         = link_to 'Локации', root_path, class: 'nav-link dropdown-toggle', data: {toggle: 'dropdown'}
         .dropdown-menu
           = link_to 'Банкетные залы', '#', class: 'dropdown-item'
           = link_to 'Фотостудии', '#', class: 'dropdown-item'
           .dropdown-divider
-          = link_to 'Все локации', '#', class: 'dropdown-item text-primary font-weight-bolder'
+          = link_to 'Все локации', locations_path, class: 'dropdown-item text-primary font-weight-bolder'
       %li.nav-item.dropdown
         = link_to 'Исполнители', root_path, class: 'nav-link dropdown-toggle', data: {toggle: 'dropdown'}
         .dropdown-menu
@@ -22,7 +23,6 @@
           = link_to 'Оформители', '#', class: 'dropdown-item'
           .dropdown-divider
           = link_to 'Все исполнители', '#', class: 'dropdown-item text-primary font-weight-bolder'
-
       %li.nav-item
         = link_to 'Шоу и активности', root_path, class: 'nav-link'
       %li.nav-item.dropdown
@@ -33,7 +33,20 @@
           = link_to 'Фейерверки', '#', class: 'dropdown-item'
           .dropdown-divider
           = link_to 'Все оборудование', '#', class: 'dropdown-item text-primary font-weight-bolder'
-      %li.nav-item
-        = link_to 'Автомобили', root_path, class: 'nav-link'
+      -#%li.nav-item
+      -#  = link_to 'Автомобили', root_path, class: 'nav-link'
       %li.nav-item
         = link_to 'Кейтеринг', root_path, class: 'nav-link'
+    %hr.d-lg-none
+    %ul.navbar-nav
+      %li.nav-item
+        - unless signed_in?
+          = link_to new_user_session_path, class: 'nav-link', title: 'Войти', data: {toggle: 'tooltip', placement: 'right'} do
+            %i.fas.fa-sign-in-alt.fa-lg.text-dark
+            %span.d-lg-none
+              Войти
+        - else
+          = link_to destroy_user_session_path, method: :delete, title: 'Выйти', data: {toggle: 'tooltip', placement: 'right'} do
+            %i.fas.fa-sign-out-alt.fa-lg.text-dark
+            %span.d-lg-none
+              Выйти

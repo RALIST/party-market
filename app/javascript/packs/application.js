@@ -23,6 +23,9 @@ import './styles.scss'
 
 document.addEventListener('turbolinks:load', function(){
   betterNav();
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
 });
 
 var words = ['Фотограф', 'Аниматор', 'Фокусник', 'Видеограф', 'Ресторан', 'Батут', 'Ведущий', 'Музыка', 'Фотобудка'];
@@ -32,7 +35,6 @@ setInterval(function(){
     count++;
     $(this).text(words[count % words.length]).fadeIn(400);
   });
-  console.log('Done')
 }, 2000);
 
 
