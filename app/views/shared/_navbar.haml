@@ -1,0 +1,39 @@
+%nav.navbar.navbar-expand-lg.better-bootstrap-nav-left.sticky-top.border-bottom
+  = link_to 'Home', root_path,  class: 'navbar-brand d-lg-none'
+  = link_to  '#', class: 'navbar-toggler', data: {toggle: 'collapse', target: '#navbar'} do
+    %i.fas.fa-bars.fa-lg
+  .collapse.navbar-collapse#navbar
+
+    %ul.navbar-nav.w-100.justify-content-between
+
+      %li.nav-item.dropdown
+        = link_to 'Локации', root_path, class: 'nav-link dropdown-toggle', data: {toggle: 'dropdown'}
+        .dropdown-menu
+          = link_to 'Банкетные залы', '#', class: 'dropdown-item'
+          = link_to 'Фотостудии', '#', class: 'dropdown-item'
+          .dropdown-divider
+          = link_to 'Все локации', '#', class: 'dropdown-item text-primary font-weight-bolder'
+      %li.nav-item.dropdown
+        = link_to 'Исполнители', root_path, class: 'nav-link dropdown-toggle', data: {toggle: 'dropdown'}
+        .dropdown-menu
+          = link_to 'Аниматоры', '#', class: 'dropdown-item'
+          = link_to 'Фотографы', '#', class: 'dropdown-item'
+          = link_to 'Ведущие', '#', class: 'dropdown-item'
+          = link_to 'Оформители', '#', class: 'dropdown-item'
+          .dropdown-divider
+          = link_to 'Все исполнители', '#', class: 'dropdown-item text-primary font-weight-bolder'
+
+      %li.nav-item
+        = link_to 'Шоу и активности', root_path, class: 'nav-link'
+      %li.nav-item.dropdown
+        = link_to 'Оборудование и товары', root_path, class: 'nav-link dropdown-toggle', data: {toggle: 'dropdown'}
+        .dropdown-menu
+          = link_to 'Батуты', '#', class: 'dropdown-item'
+          = link_to 'Фотобудки', '#', class: 'dropdown-item'
+          = link_to 'Фейерверки', '#', class: 'dropdown-item'
+          .dropdown-divider
+          = link_to 'Все оборудование', '#', class: 'dropdown-item text-primary font-weight-bolder'
+      %li.nav-item
+        = link_to 'Автомобили', root_path, class: 'nav-link'
+      %li.nav-item
+        = link_to 'Кейтеринг', root_path, class: 'nav-link'

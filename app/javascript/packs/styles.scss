@@ -1,0 +1,9 @@
+@import '../css/custom_variables';
+@import '~bootstrap';
+@import '../css/better-nav';
+@import "~@fortawesome/fontawesome-free";
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&display=swap&subset=cyrillic');
+
+.nav-link {
+  line-height: 3rem;
+}
