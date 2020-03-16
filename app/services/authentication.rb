@@ -20,10 +20,13 @@ class Authentication
         u.email = user_data[:email]
       end
     else
-      User.find_or_create_by!(email: 'admin@example.com') do |user|
+      u = User.find_or_create_by!(email: 'admin@example.com') do |user|
         user.password = '123123123'
-        user.access_tokens.create!(token: Doorkeeper::JWT.generate(user: user), refresh_token: SecureRandom.hex(10))
+        user.first_name = 'Admin'
+        user.last_name = 'Admin'
       end
+      u.access_tokens.create!(token: Doorkeeper::JWT.generate(resource_owner_id: u.id), refresh_token: SecureRandom.hex(10)) unless u.access_tokens.any?
+      u
     end
   end
 end

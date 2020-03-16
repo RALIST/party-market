@@ -1,4 +1,4 @@
-class Api::V1::UsersController < Api::V1::ApplicationController
+class Api::V1::UsersController < ApplicationController
 
   def me
     render json: current_user,

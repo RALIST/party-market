@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  namespace :api do
+  devise_for :users, skip: :all
+
+  namespace :api, defaults: { format: :json } do
     namespace :v1 do
       # Authentication
       scope 'auth' do
@@ -8,15 +10,13 @@ Rails.application.routes.draw do
           skip_controllers :authorizations, :applications,
             :authorized_applications
         end
-        devise_for :users,
-                   path: '',
-                   controllers: {
-                     registrations: 'api/v1/devise/registrations'
-                   }
+
+        devise_scope :user do
+          post '/', to: 'registrations#create', as: :sign_up
+        end
       end
 
       root 'home#index'
-
       get '/me', to: 'users#me'
     end
   end

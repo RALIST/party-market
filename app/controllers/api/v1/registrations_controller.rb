@@ -1,10 +1,11 @@
-class Api::V1::Devise::RegistrationsController < Devise::RegistrationsController
-  skip_before_action :authenticate_user!
+class Api::V1::RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource(sign_up_params)
     resource.save!
-    render json: resource, status: :created
+    render json: resource,
+           serializer: Api::V1::UserSerializer,
+           status: :created
   end
 
   private
