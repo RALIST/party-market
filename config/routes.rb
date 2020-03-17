@@ -18,6 +18,10 @@ Rails.application.routes.draw do
 
       root 'home#index'
       get '/me', to: 'users#me'
+
+      resources :events do
+        resources :event_users, only: [:index, :create, :destroy]
+      end
     end
   end
 end

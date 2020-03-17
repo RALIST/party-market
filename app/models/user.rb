@@ -12,6 +12,9 @@ class User < ApplicationRecord
                             foreign_key: :resource_owner_id,
                             dependent:   :destroy
 
+  has_many :event_users, dependent: :destroy
+  has_many :events, through: :event_users
+
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
   end
