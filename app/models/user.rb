@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   has_many :event_users, dependent: :destroy
   has_many :events, through: :event_users
-  has_many :tags, as: :actor
+  has_many :marks, as: :actor
 
   has_one_attached :avatar
 

@@ -28,9 +28,10 @@
 
 # IDE specific files
 *.iml
-.idea
+/.idea
 .generators
 .rakeTasks
 
 # OS specific files
 .DS_Store
+/storage/

@@ -3,7 +3,8 @@ class Image < ApplicationRecord
   belongs_to :event
   has_many :marks, dependent: :destroy
   has_many :marked_users, through: :marks, class_name: 'User'
-  has_many :tags, as: :resource
+  has_many :resource_tags, as: :resource
+  has_many :tags, through: :resource_tags
   has_one_attached :file
 
   after_create_commit { ImageProcessingJob.perform_later(id)}

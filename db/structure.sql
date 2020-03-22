@@ -364,6 +364,39 @@ ALTER SEQUENCE public.oauth_applications_id_seq OWNED BY public.oauth_applicatio
 
 
 --
+-- Name: resource_tags; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.resource_tags (
+    id bigint NOT NULL,
+    resource_type character varying,
+    resource_id bigint,
+    tag_id bigint,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: resource_tags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.resource_tags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: resource_tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.resource_tags_id_seq OWNED BY public.resource_tags.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -378,8 +411,6 @@ CREATE TABLE public.schema_migrations (
 
 CREATE TABLE public.tags (
     id bigint NOT NULL,
-    resource_id integer,
-    resource_type character varying,
     key character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -515,6 +546,13 @@ ALTER TABLE ONLY public.oauth_applications ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: resource_tags id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.resource_tags ALTER COLUMN id SET DEFAULT nextval('public.resource_tags_id_seq'::regclass);
+
+
+--
 -- Name: tags id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -606,6 +644,14 @@ ALTER TABLE ONLY public.oauth_access_tokens
 
 ALTER TABLE ONLY public.oauth_applications
     ADD CONSTRAINT oauth_applications_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: resource_tags resource_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.resource_tags
+    ADD CONSTRAINT resource_tags_pkey PRIMARY KEY (id);
 
 
 --
@@ -794,10 +840,17 @@ CREATE UNIQUE INDEX index_oauth_applications_on_uid ON public.oauth_applications
 
 
 --
--- Name: index_tags_on_resource_id_and_resource_type; Type: INDEX; Schema: public; Owner: -
+-- Name: index_resource_tags_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tags_on_resource_id_and_resource_type ON public.tags USING btree (resource_id, resource_type);
+CREATE INDEX index_resource_tags_on_resource_type_and_resource_id ON public.resource_tags USING btree (resource_type, resource_id);
+
+
+--
+-- Name: index_resource_tags_on_tag_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_resource_tags_on_tag_id ON public.resource_tags USING btree (tag_id);
 
 
 --
@@ -870,6 +923,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200322101912'),
 ('20200322160209'),
 ('20200322160507'),
-('20200322164119');
+('20200322164119'),
+('20200322170854');
 
 
