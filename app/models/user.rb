@@ -14,6 +14,11 @@ class User < ApplicationRecord
 
   has_many :event_users, dependent: :destroy
   has_many :events, through: :event_users
+  has_many :tags, as: :actor
+
+  has_one_attached :avatar
+
+  after_commit { AvatarProcessingJob.perform_later(id) }
 
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later

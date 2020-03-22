@@ -3,7 +3,10 @@ class Api::V1::EventsController < ApplicationController
   def index
     events = Event.all
 
-    paginate json: events, include: '**', status: :ok
+    paginate json: events.includes(event_users: :user),
+             include: '**',
+             each_serializer: Api::V1::EventSerializer,
+             status: :ok
   end
 
   def show

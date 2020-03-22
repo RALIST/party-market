@@ -27,6 +27,8 @@ gem 'kaminari'
 gem 'rack-cors'
 gem 'rspec-rails', '~> 3.9'
 gem 'rswag'
+gem "aws-sdk-s3", require: false
+gem 'image_processing'
 
 
 group :development, :test do
