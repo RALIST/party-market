@@ -1,12 +1,11 @@
-class Api::V1::UserSerializer < Api::V1::BaseSerializer
-  attributes :id, :first_name, :last_name, :full_name, :created_at, :updated_at
-  attribute :avatar, if: -> { object.avatar.attached? }
+class Api::V1::ImageSerializer < Api::V1::BaseSerializer
+  attribute :file
 
-  def avatar
+  def file
     hash = {}
-    User::VARIANTS.each do |variant, props|
+    Image::VARIANTS.each do |variant, props|
       url =
-        object.avatar.variant(
+        object.file.variant(
           props[:process] => [props[:width], props[:height]],
           auto_orient: true,
           strip: true,

@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable, :trackable
 
@@ -19,6 +17,12 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   after_commit { AvatarProcessingJob.perform_later(id) }
+
+  VARIANTS = {
+    small: {width: 100, height: 100, process: :resize_to_limit},
+    medium: { width: 200, height: 200, process: :resize_to_limit },
+    large: { width: 400, height: 400, process: :resize_to_limit }
+  }
 
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later

@@ -7,10 +7,10 @@ class Image < ApplicationRecord
   has_many :tags, through: :resource_tags
   has_one_attached :file
 
-  after_create_commit { ImageProcessingJob.perform_later(id)}
+  after_commit { ImageProcessingJob.perform_later(id) }
 
   VARIANTS = {
     medium: { width: 400, height: 200, process: :resize_to_limit },
     large: { width: 768, height: 384, process: :resize_to_limit }
-  }.freeze
+  }
 end

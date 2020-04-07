@@ -34,6 +34,7 @@ module Party
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.active_record.schema_format = :sql
+    config.active_job.queue_adapter = :delayed_job
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do

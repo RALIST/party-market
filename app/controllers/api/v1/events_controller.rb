@@ -3,7 +3,7 @@ class Api::V1::EventsController < ApplicationController
   def index
     events = Event.all
 
-    paginate json: events.includes(event_users: :user),
+    paginate json: events.includes(images: { file_attachment: :blob }, event_users: { user: { avatar_attachment: :blob } }),
              include: '**',
              each_serializer: Api::V1::EventSerializer,
              status: :ok

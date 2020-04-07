@@ -29,6 +29,9 @@ gem 'rspec-rails', '~> 3.9'
 gem 'rswag'
 gem "aws-sdk-s3", require: false
 gem 'image_processing'
+gem 'aws-sdk-s3'
+gem 'delayed_job_active_record'
+
 
 
 group :development, :test do

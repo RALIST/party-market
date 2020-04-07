@@ -120,6 +120,45 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.delayed_jobs (
+    id bigint NOT NULL,
+    priority integer DEFAULT 0 NOT NULL,
+    attempts integer DEFAULT 0 NOT NULL,
+    handler text NOT NULL,
+    last_error text,
+    run_at timestamp without time zone,
+    locked_at timestamp without time zone,
+    failed_at timestamp without time zone,
+    locked_by character varying,
+    queue character varying,
+    created_at timestamp(6) without time zone,
+    updated_at timestamp(6) without time zone
+);
+
+
+--
+-- Name: delayed_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.delayed_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: delayed_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.delayed_jobs_id_seq OWNED BY public.delayed_jobs.id;
+
+
+--
 -- Name: event_users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -226,8 +265,7 @@ CREATE TABLE public.marks (
     id bigint NOT NULL,
     image_id bigint,
     event_user_id bigint,
-    actor_id integer,
-    actor_type integer,
+    actor_id bigint,
     name text,
     description text,
     created_at timestamp(6) without time zone NOT NULL,
@@ -497,6 +535,13 @@ ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: delayed_jobs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delayed_jobs ALTER COLUMN id SET DEFAULT nextval('public.delayed_jobs_id_seq'::regclass);
+
+
+--
 -- Name: event_users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -591,6 +636,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
+-- Name: delayed_jobs delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delayed_jobs
+    ADD CONSTRAINT delayed_jobs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: event_users event_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -679,6 +732,13 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: delayed_jobs_priority; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delayed_jobs_priority ON public.delayed_jobs USING btree (priority, run_at);
+
+
+--
 -- Name: index_active_storage_attachments_on_blob_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -746,20 +806,6 @@ CREATE INDEX index_images_on_event_user_id ON public.images USING btree (event_u
 --
 
 CREATE INDEX index_marks_on_actor_id ON public.marks USING btree (actor_id);
-
-
---
--- Name: index_marks_on_actor_id_and_actor_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_marks_on_actor_id_and_actor_type ON public.marks USING btree (actor_id, actor_type);
-
-
---
--- Name: index_marks_on_actor_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_marks_on_actor_type ON public.marks USING btree (actor_type);
 
 
 --
@@ -924,6 +970,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200322160209'),
 ('20200322160507'),
 ('20200322164119'),
-('20200322170854');
+('20200322170854'),
+('20200407133845');
 
 
