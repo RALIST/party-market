@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  include ErrorsHandler
   respond_to :json
   before_action :authenticate_user!
   private
